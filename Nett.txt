@@ -1,0 +1,431 @@
+echo off
+:origin 
+title NetAssitant By  RichieSantos
+cls
+color 0a
+echo ____________________________________________________________________
+echo           NETWORK ASSISTANT TOOL FOR NETWORK ADMINISTRATION  
+echo                                 
+echo ____________________________________________________________________
+rem rsabo2018@gmail.com
+
+goto info
+This batch program was create 7/13/2018
+to order to facilitate the process of searching specific network 
+data. the batch needs to be run as administrator. 
+Warning!!Changes to this file can change the behavior of the batch
+
+:info
+
+
+echo. 
+
+echo Available Options:
+echo.
+echo 1.  Show Computer's Hostname.
+echo 2.  Show All IP configurations.
+echo 3.  PATHPING a destination (Combination of traceroute/ping).
+echo 4.  Display running processes. 
+echo 5.  Nslookup.
+echo 6.  Ping Destination.
+echo 7.  Show ARP table.
+echo 8.  Delete ARP table.
+echo 9.  Show Routing table.
+echo 10. Delete Routing table.
+echo 11. Release your IP.
+echo 12. IP Renewal.
+echo 13. Flush DNS cache.
+echo 14. Show Network Adapter Options.
+echo 15. Verify Conections (established, listening or closed.).
+echo 16. Tracert.
+echo 17. Show Mac address.
+echo 18. Turn off the firewall (Not recommended).
+echo 19. Turn on the firewall.
+echo 20. Display DNS cache.
+echo 21. Open Web Browser.
+echo 22. Open Network Adapter Settings. 
+echo.
+
+
+
+
+SET /P numlist="Enter a number from the list  " 
+
+if "%numlist%"=="1" (
+cls
+
+echo The Computer's hostname is:
+echo.
+
+      hostname
+echo.
+pause
+goto origin
+) else (
+goto num2
+)
+:num2
+if "%numlist%"=="2" (
+cls
+
+echo Ip Configurations:
+
+ipconfig /all
+echo.
+pause
+goto origin
+) else (
+goto num3
+)
+
+:num3
+if "%numlist%"=="3" (
+cls
+echo Pathping a Destination:
+setlocal EnableDelayedExpansion
+set /p ping2="Input Address "
+echo.
+echo Results: 
+pathping !ping2!
+echo.
+
+pause
+
+goto origin
+) else (
+goto num4
+)
+:num4
+if "%numlist%"=="4" (
+cls
+echo Display Running Processes
+tasklist
+echo.
+pause 
+goto origin
+) else (
+goto num5
+)
+:num5
+if "%numlist%"=="5" (
+cls
+echo Nslookup:
+setlocal EnableDelayedExpansion
+set /p look="Input Address "
+echo.
+echo Results: 
+nslookup !look!
+echo.
+pause
+goto origin
+) else (
+goto num6
+)
+:num6
+if "%numlist%"=="6" (
+cls
+echo Ping a Destination:
+setlocal EnableDelayedExpansion
+set /p ping1="Input Address "
+echo.
+echo Results: 
+ping !ping1!
+echo.
+
+pause
+
+goto origin
+) else (
+goto num7
+)
+:num7 
+if "%numlist%"=="7" (
+cls
+echo Show ARP table
+arp -a
+echo.
+pause
+goto origin
+) else (
+goto num8
+)
+:num8
+if "%numlist%"=="8" (
+cls
+echo Deleting arp table
+arp -d
+echo.
+pause
+goto origin 
+) else (
+goto num9
+)
+:num9
+if "%numlist%"=="9" (
+cls
+echo Show Routing table:
+route print
+echo.
+pause
+goto origin
+) else (
+goto num10
+)
+:num10
+if "%numlist%"=="10" (
+cls
+echo Deleting Routing table
+route -f
+echo.
+pause
+goto origin
+) else (
+goto num11
+)
+:num11
+if "%numlist%"=="11" (
+cls
+echo Ip Release:
+ipconfig/release
+echo.
+pause
+goto origin 
+) else (
+goto num12
+)
+:num12
+if "%numlist%"=="12" (
+cls
+echo IP Renew:
+ipconfig/renew
+echo.
+pause
+goto origin 
+) else (
+goto num13
+)
+:num13 
+if "%numlist%"=="13" (
+cls
+echo Flushing DNS
+ipconfig/flushdns
+echo.
+pause
+goto origin 
+) else (
+goto num14
+)
+:num14
+
+if "%numlist%"=="14" (
+cls
+echo Opening Network Adapters Options:
+echo.
+ncpa.cpl
+
+pause
+goto origin
+) else (
+goto num15
+)
+
+
+
+
+:num15
+
+rem ########################Conectivity#################################
+
+if "%numlist%"=="15" (
+
+
+
+cls
+echo Verify Conections:
+echo.
+
+echo 1. Show Established Conections.
+echo 2. Show Listining Conections.
+echo 3. Show Closed Conections.
+
+
+echo.
+setlocal EnableDelayedExpansion
+SET /P listnum="Enter a number from the list  "
+
+
+
+
+if "!listnum!"=="1" (
+
+cls
+
+echo Established Conections:
+
+netstat -an | findstr  ESTABLISHED
+
+pause
+
+goto origin
+
+) else (
+goto numero2
+)
+
+:numero2
+if "!listnum!"=="2" (
+cls
+echo Listening Conections:
+
+netstat -an | findstr  LISTENING
+pause
+goto origin
+
+) else (
+goto numero3
+)
+
+:numero3
+if "!listnum!"=="3" (
+cls
+echo Closed Conections:
+
+netstat -an | findstr  CLOSED_WAIT
+pause
+goto origin
+
+) else (
+goto origin
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+) else (
+goto num16
+)
+
+
+
+
+
+
+
+:num16
+if "%numlist%"=="16" (
+cls
+echo Using Tracert:
+setlocal EnableDelayedExpansion
+set /p track="Input Address  "
+echo.
+echo Results: 
+tracert -d !track!
+echo.
+pause
+goto origin
+) else (
+goto num17
+)
+:num17
+if "%numlist%"=="17" (
+cls
+echo Mac Address
+echo Results:
+getmac
+echo.
+pause
+goto origin
+) else (
+goto num18
+)
+:num18
+if "%numlist%"=="18" (
+cls
+echo Your firewall is off:
+echo.
+echo Is recommended to have firewall on.
+echo.
+NetSh Advfirewall set allprofiles state off
+pause
+goto origin
+) else (
+goto num19
+)
+:num19
+
+if "%numlist%"=="19" (
+cls
+echo Great! your firewall is on again.
+echo.
+NetSh Advfirewall set allprofiles state on
+pause
+goto origin
+) else (
+goto num20
+)
+
+:num20
+
+if "%numlist%"=="20" (
+
+cls
+
+echo DNS cache 
+echo.
+echo Results:
+echo.
+ipconfig/displaydns
+echo.
+pause 
+) else (
+
+goto num21
+
+)
+
+
+
+
+
+
+
+
+
+
+
+:num21
+
+if "%numlist%"=="21" (
+cls
+echo Using Web Browser:
+start www.google.com
+pause 
+
+goto origin
+) else (
+
+goto num22 
+)
+:num22 
+
+if "%numlist%"=="22" (
+cls
+echo Network Adapter Settings:
+ncpa.cpl
+pause 
+goto origin
+) else (
+
+goto origin 
+)
